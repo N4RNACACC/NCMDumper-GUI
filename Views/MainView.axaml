@@ -30,7 +30,7 @@
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center">
                             <Run Text="已选择："/>
-                            <Run/>
+                            <Run Text="{Binding PickedCount}"/>
                             <Run Text="个"/>
                         </TextBlock>
                         
@@ -40,7 +40,7 @@
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center">
                             <Run Text="已处理："/>
-                            <Run/>
+                            <Run Text="{Binding DumpedCount}"/>
                             <Run Text="个"/>
                         </TextBlock>
                         
@@ -50,7 +50,7 @@
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center">
                             <Run Text="失败："/>
-                            <Run/>
+                            <Run Text="{Binding FailedCount}"/>
                             <Run Text="个"/>
                         </TextBlock>
                     </StackPanel>
@@ -60,8 +60,10 @@
                         Margin="15">
                     <StackPanel Orientation="Horizontal">
                         <Button Content="选择文件"
+                                Click="FilePick_ClickAsync"
                                 Margin="0 0 5 0"/>
-                        <Button Content="开始解密"/>
+                        <Button Content="开始解密"
+                                Command="{Binding Dump}"/>
                     </StackPanel>
                 </Border>
                 
