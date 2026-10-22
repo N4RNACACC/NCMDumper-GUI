@@ -37,17 +37,14 @@ public partial class MainView : UserControl
                 Title = "选择文件",
                 FileTypeFilter = [ncmFileType]
             });
-
-            if (pickedFiles.Count == 0)
+            
+            if (DataContext is MainViewModel vm)
             {
-                Debug.WriteLine("Not pick anything");
+                vm.SetPickedFiles(pickedFiles);
             }
             else
             {
-                if (DataContext is MainViewModel vm)
-                {
-                    vm.SetPickedFiles(pickedFiles);
-                }
+                Debug.WriteLine("DataContext set is wrong");
             }
             
         }
