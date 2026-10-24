@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:NCMDumperGUI.ViewModels"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="NCMDumperGUI.Views.MainView"
              x:DataType="vm:MainViewModel">
@@ -13,7 +14,7 @@
         <vm:MainViewModel />
     </Design.DataContext>
     
-    <Grid RowDefinitions="* , 4*">
+    <Grid RowDefinitions="* , 3.5*">
         <!-- 主面板:START -->
         <Border Grid.Row="0" 
                 Margin="25 15 25 10"
@@ -21,52 +22,61 @@
                 BorderThickness="2"
                 CornerRadius="15">
             
-            <Grid ColumnDefinitions="2.6* , *">
+            <Grid RowDefinitions="*, Auto">
+                <Grid Grid.Row="0"
+                      ColumnDefinitions="2* , *">
                 
-                <Border Grid.Column="0"
+                    <Border Grid.Column="0"
                         Margin="15">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="0 0 10 0"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center">
-                            <Run Text="已选择："/>
-                            <Run Text="{Binding PickedCount}"/>
-                            <Run Text="个"/>
-                        </TextBlock>
-                        
-                        <Rectangle Width="1" Fill="LightGray" Margin="0,2,10,2"/>
-                        
-                        <TextBlock Margin="0 0 10 0"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center">
-                            <Run Text="已处理："/>
-                            <Run Text="{Binding DumpedCount}"/>
-                            <Run Text="个"/>
-                        </TextBlock>
-                        
-                        <Rectangle Width="1" Fill="LightGray" Margin="0,2,10,2"/>
-                        
-                        <TextBlock Margin="0 0 10 0"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center">
-                            <Run Text="失败："/>
-                            <Run Text="{Binding FailedCount}"/>
-                            <Run Text="个"/>
-                        </TextBlock>
-                    </StackPanel>
-                </Border>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Margin="0 0 10 0"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center">
+                                <Run Text="已选择："/>
+                                <Run Text="{Binding PickedCount}"/>
+                                <Run Text="个"/>
+                            </TextBlock>
+                            
+                            <Rectangle Width="1" Fill="LightGray" Margin="0,2,10,2"/>
+                            
+                            <TextBlock Margin="0 0 10 0"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center">
+                                <Run Text="已处理："/>
+                                <Run Text="{Binding DumpedCount}"/>
+                                <Run Text="个"/>
+                            </TextBlock>
+                            
+                            <Rectangle Width="1" Fill="LightGray" Margin="0,2,10,2"/>
+                            
+                            <TextBlock Margin="0 0 10 0"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center">
+                                <Run Text="失败："/>
+                                <Run Text="{Binding FailedCount}"/>
+                                <Run Text="个"/>
+                            </TextBlock>
+                        </StackPanel>
+                    </Border>
                 
-                <Border Grid.Column="1"
+                    <Border Grid.Column="1"
                         Margin="15">
-                    <StackPanel Orientation="Horizontal">
-                        <Button Content="选择文件"
-                                Click="FilePick_ClickAsync"
-                                Margin="0 0 5 0"/>
-                        <Button Content="开始解密"
-                                Command="{Binding Dump}"/>
-                    </StackPanel>
-                </Border>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Content="选择文件"
+                                    Click="FilePick_ClickAsync"
+                                    Margin="0 0 5 0"/>
+                            <Button Content="开始解密"
+                                    Command="{Binding DumpAsync}"
+                                    Name="DumpButton"
+                                    suki:ButtonExtensions.ShowProgress="{Binding ButtonProgressMode}"/>
+                        </StackPanel>
+                    </Border>
                 
+                </Grid>
+                
+                <ProgressBar Grid.Row="1"
+                             Height="5"
+                             Margin="10 0 10 0"/>
             </Grid>
             
         </Border>

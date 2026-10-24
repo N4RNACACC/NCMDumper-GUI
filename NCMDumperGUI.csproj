@@ -3,11 +3,12 @@
         <OutputType>WinExe</OutputType>
         <TargetFramework>net10.0</TargetFramework>
         <Nullable>enable</Nullable>
+        <PublishAot>true</PublishAot>
         <ApplicationManifest>app.manifest</ApplicationManifest>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
 
     <ItemGroup>
-        <Folder Include="Models\"/>
         <AvaloniaResource Include="Assets\**"/>
         <Folder Include="Styles\" />
     </ItemGroup>
@@ -15,7 +16,6 @@
     <ItemGroup>
         <PackageReference Include="Avalonia" Version="12.1.4"/>
         <PackageReference Include="Avalonia.Desktop" Version="12.1.4"/>
-        <PackageReference Include="Avalonia.Themes.Fluent" Version="12.1.4"/>
         <PackageReference Include="Avalonia.Fonts.Inter" Version="12.1.4"/>
         <PackageReference Include="AvaloniaUI.DiagnosticsSupport" Version="2.2.3">
             <IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
@@ -23,5 +23,11 @@
         </PackageReference>
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2"/>
         <PackageReference Include="SukiUI" Version="7.0.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="NativeLibs\libncmdump.dll">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 </Project>
