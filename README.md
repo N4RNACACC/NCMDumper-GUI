@@ -4,9 +4,12 @@
 解密后的.flac或.mp3会输出到与.ncm相同的位置   
 > 程序依赖.NET Runtime运行，请确保目标机器已经安装了.NET 10 SDK或.NET 10 Desktop Runtime   
 
-> 本地构建时可通过修改项目.csproj文件中`SelfContained`的值为`true`启用自包含将Runtime打包进程序内以脱离Runtime运行
+> 本地构建时可通过修改项目.csproj文件中`SelfContained`的值为`true`启用自包含，将Runtime打包进程序内以脱离Runtime运行
 
 ## 使用  
+提供Release发布与本地构建两种部署方式
+### Release发布
+下载[Release](https://github.com/N4RNACACC/NCMDumper-GUI/releases/latest)中的NCMDumperGUI.exe到本地直接运行
 ### 本地构建
 先决条件：需要安装[.NET SDK](https://dotnet.microsoft.com/download)(.NET 10或以上版本)  
 > 请使用.NET SDK而不是Runtime，Runtime无法用于构建
