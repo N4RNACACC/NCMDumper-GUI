@@ -1,0 +1,158 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:NCMDumperGUI.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="NCMDumperGUI.Views.AboutView"
+             x:DataType="vm:MainViewModel">
+    
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainViewModel />
+    </Design.DataContext>
+    
+    <Grid Margin="25"
+          RowDefinitions="Auto, 15, *">
+        <StackPanel Grid.Row="0">
+            <TextBlock Text="About"
+                       FontSize="25"/>
+            <StackPanel Margin="10">
+                <TextBlock FontSize="15">
+                    <Run Text="Version:"/>
+                    <Run Text="Release 1.1"/>
+                </TextBlock>
+                <TextBlock FontSize="15">
+                    <Run Text="Author:"/>
+                    <Run Text="N4RNAC"/>
+                </TextBlock>
+                <TextBlock Text="Copyright (c) 2026 N4RNAC"/>
+                
+                <StackPanel Orientation="Horizontal">
+                    <HyperlinkButton NavigateUri="https://github.com/N4RNACACC/NCMDumper-GUI/blob/master/LICENSE.txt"
+                                     Content="View open source license"
+                                     FontSize="15"
+                                     Margin="0 0 5 0"/>
+                    <HyperlinkButton NavigateUri="https://github.com/N4RNACACC/NCMDumper-GUI"
+                                     Content="GitHub: Project"
+                                     FontSize="15"
+                                     Margin="5 0 5 0"/>
+                    <HyperlinkButton NavigateUri="https://github.com/N4RNACACC"
+                                     Content="GitHub: Author"
+                                     FontSize="15"
+                                     Margin="5 0 5 0"/>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+        
+        <Grid Grid.Row="2" RowDefinitions="Auto, *">
+            <TextBlock Grid.Row="0"
+                       Text="Licenses and Copyright Notices"
+                       FontSize="25"/>
+            <ScrollViewer Grid.Row="1">
+                <StackPanel>
+                    <!-- Avalonia : START -->
+                    <StackPanel Margin="10">
+                        <Grid ColumnDefinitions="*,*">
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Text="Avalonia"/>
+                                <TextBlock Text="Avalonia.Desktop"/>
+                                <TextBlock Text="Avalonia.Fonts.Inter"/>
+                                <TextBlock Text="AvaloniaUI.DiagnosticsSupport"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1">
+                                <TextBlock Text="Copyright (c) AvaloniaUI OÜ All Rights Reserved"/>
+                                <TextBlock Text="Licensed under the MIT License"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <HyperlinkButton NavigateUri="https://github.com/AvaloniaUI/Avalonia"
+                                                     Content="Source"
+                                                     FontSize="15"
+                                                     Margin="5 0 5 0"/>
+                                    <HyperlinkButton NavigateUri="https://github.com/AvaloniaUI/Avalonia/blob/main/licence.md"
+                                                     Content="License"
+                                                     FontSize="15"
+                                                     Margin="5 0 5 0"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                    <!-- Avalonia : END -->
+                    
+                    <!-- CommunityToolkit.Mvvm : START-->
+                    <StackPanel Margin="10">
+                        <Grid ColumnDefinitions="*,*">
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Text="CommunityToolkit.Mvvm"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1">
+                                <TextBlock Text="Copyright (c) .NET Foundation and Contributors"/>
+                                <TextBlock Text="Licensed under the MIT License"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <HyperlinkButton NavigateUri="https://github.com/CommunityToolkit/dotnet"
+                                                     Content="Source"
+                                                     FontSize="15"
+                                                     Margin="5 0 5 0"/>
+                                    <HyperlinkButton NavigateUri="https://github.com/CommunityToolkit/dotnet/blob/main/License.md"
+                                                     Content="License"
+                                                     FontSize="15"
+                                                     Margin="5 0 5 0"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                    <!-- CommunityToolkit.Mvvm : END-->
+                    
+                    <!-- SukiUI : START-->
+                    <StackPanel Margin="10">
+                        <Grid ColumnDefinitions="*,*">
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Text="SukiUI"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1">
+                                <TextBlock Text="Copyright (c) 2022 kikipoulet"/>
+                                <TextBlock Text="Licensed under the MIT License"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <HyperlinkButton NavigateUri="https://github.com/kikipoulet/SukiUI"
+                                                     Content="Source"
+                                                     FontSize="15"
+                                                     Margin="5 0 5 0"/>
+                                    <HyperlinkButton NavigateUri="https://github.com/kikipoulet/SukiUI/blob/main/LICENSE"
+                                                     Content="License"
+                                                     FontSize="15"
+                                                     Margin="5 0 5 0"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                    <!-- SukiUI : END-->
+                    
+                    <!-- ncmdump : START-->
+                    <StackPanel Margin="10">
+                        <Grid ColumnDefinitions="*,*">
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Text="ncmdump"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1">
+                                <TextBlock Text="Copyright (c) 2021 taurusxin"/>
+                                <TextBlock Text="Licensed under the MIT License"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <HyperlinkButton NavigateUri="https://github.com/taurusxin/ncmdump"
+                                                     Content="Source"
+                                                     FontSize="15"
+                                                     Margin="5 0 5 0"/>
+                                    <HyperlinkButton NavigateUri="https://github.com/taurusxin/ncmdump/blob/main/LICENSE.txt"
+                                                     Content="License"
+                                                     FontSize="15"
+                                                     Margin="5 0 5 0"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                    <!-- ncmdump : END-->
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+    
+</UserControl>

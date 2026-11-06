@@ -18,12 +18,20 @@
                               Name="SukiToastHost"/>
     </sukiUi:SukiWindow.Hosts>
     
+    <sukiUi:SukiWindow.RightWindowTitleBarControls>
+        <Button Content="{Binding ToggleButtonText}"
+                Command="{Binding TogglePageCommand}"/>
+    </sukiUi:SukiWindow.RightWindowTitleBarControls>
+    
     <Design.DataContext>
         <!-- This only sets the DataContext for the previewer in an IDE,
              to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
         <vm:MainViewModel />
     </Design.DataContext>
-
-    <views:MainView/>
-
+    
+    <Panel>
+        <views:MainView IsVisible="{Binding !IsAboutVisible}"/>
+        <views:AboutView IsVisible="{Binding IsAboutVisible}"/>
+    </Panel>
+    
 </sukiUi:SukiWindow>

@@ -35,8 +35,15 @@ public partial class MainViewModel : ViewModelBase
     [ObservableProperty] public partial int DumpedCount { get; set; }
 
     [ObservableProperty] public partial int FailedCount { get; set; }
+    
+    [ObservableProperty] public partial bool IsAboutVisible { get; set; } = false;
 
     public ObservableCollection<DumpItem> Files { get; } = [];
+    
+    public string ToggleButtonText => IsAboutVisible ? "Back" : "About";
+    
+    // ReSharper disable once UnusedParameterInPartialMethod
+    partial void OnIsAboutVisibleChanged(bool value) => OnPropertyChanged(nameof(ToggleButtonText));
     
     #endregion
 
@@ -46,9 +53,15 @@ public partial class MainViewModel : ViewModelBase
     #endregion
     
     // Commands
-#region Commands
+    #region Commands
     [RelayCommand]
-    public async Task DumpAsync()
+    private void TogglePage()
+    {
+        IsAboutVisible = !IsAboutVisible;
+    }
+    
+    [RelayCommand]
+    private async Task DumpAsync()
     {
         Debug.WriteLine("Command method DumpAsync() Triggered");
 
