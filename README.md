@@ -1,5 +1,5 @@
 # NCMDumperGUI  
-一个使用Avalonia为ncmdump编写的GUI程序  
+一个使用Avalonia为[taurusxin/ncmdump](https://github.com/taurusxin/ncmdump)编写的GUI程序  
 仅支持Windows x86_64   
 解密后的.flac或.mp3会输出到与.ncm相同的位置   
 > 程序依赖.NET Runtime运行，请确保目标机器已经安装了.NET 10 SDK或.NET 10 Desktop Runtime   
@@ -17,7 +17,7 @@
    
 1.下载仓库或使用git clone本仓库并进入到项目目录
 ~~~
-git clone https://github.com/N4RNACACC/NCMDumper-GUI
+git clone https://github.com/N4RNACACC/NCMDumper-GUI.git
 cd NCMDumper-GUI
 ~~~   
 2.还原Nuget依赖
@@ -32,7 +32,7 @@ dotnet build -c Release
   
 ## 引用  
 本项目引用了来自[taurusxin/ncmdump](https://github.com/taurusxin/ncmdump)的示例代码及编译的DLL文件和其他第三方库  
-详见THIRD_PARTY_LICENSES.txt
+详见[THIRD_PARTY_LICENSES.txt](THIRD_PARTY_LICENSES.txt)
 
 ## LICENSE  
-此项目使用MIT协议开源，详见LICENSE.txt
+此项目使用MIT协议开源，详见[LICENSE.txt](LICENSE.txt)
