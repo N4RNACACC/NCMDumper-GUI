@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
+using Avalonia.Controls;
 using Avalonia.Controls.Notifications;
 using Avalonia.Platform.Storage;
 using Avalonia.Threading;
@@ -35,12 +36,6 @@ public partial class MainViewModel : ViewModelBase
 
     [ObservableProperty] public partial int FailedCount { get; set; }
 
-    [ObservableProperty] public partial bool ButtonProgressMode { get; set; } = false;
-    
-    [ObservableProperty] public partial double ProgressValue { get; set; }
-    
-    [ObservableProperty] public partial double ProgressMax { get; set; } = 1;
-
     public ObservableCollection<DumpItem> Files { get; } = [];
     
     #endregion
@@ -59,15 +54,27 @@ public partial class MainViewModel : ViewModelBase
 
         if (Files.Count == 0)
         {
-            Toast("Dumper", "Not pick any .ncm files !", false, NotificationType.Warning);
+            Toast("Dumper", "Not pick any .ncm files !", NotificationType.Warning);
             return;
         }
 
-        ButtonProgressMode = true;
+        // 初始化状态
         DumpedCount = 0;
         FailedCount = 0;
-        ProgressMax = Files.Count;
-        ProgressValue = 0;
+        
+        // 初始化进度条
+        var progressBar = new ProgressBar
+        {
+            Value = 0,
+            Maximum = Files.Count,
+            ShowProgressText = true
+        };
+        
+        // 创建Toast
+        var progressToast = ToastManager.CreateToast()
+            .WithTitle("Dumper")
+            .WithContent(progressBar)
+            .Queue();
 
         // 重置状态
         foreach (var item in Files)
@@ -75,13 +82,11 @@ public partial class MainViewModel : ViewModelBase
             item.Status = DumpStatus.Pending;
             item.ErrorMessage = null;
         }
-
-        Toast("Dumper", "Dumping...", true, NotificationType.Information);
         
         var result = await Task.Run(() =>
         {
             int ok = 0, ng = 0;
-            for (int i = 0; i < Files.Count; i++)
+            for (var i = 0; i < Files.Count; i++)
             {
                 var item = Files[i];
                 var index = i;
@@ -132,17 +137,21 @@ public partial class MainViewModel : ViewModelBase
                 var ngLocal = ng;
                 Dispatcher.UIThread.Post(() =>
                 {
-                    ProgressValue = index + 1;
                     DumpedCount = okLocal;
                     FailedCount = ngLocal;
+                    Dispatcher.UIThread.Post(() =>
+                    {
+                        DumpedCount = okLocal;
+                        FailedCount = ngLocal;
+                        progressBar.Value = index + 1; // 同步进度条
+                    });
                 });
             }
             return (ok, ng);
         });
 
-        ButtonProgressMode = false;
-        Toast("Dumper", $"Dump finished. Success: {result.ok}, Failed: {result.ng}",
-            false, NotificationType.Information);
+        ToastManager.Dismiss(progressToast);
+        Toast("Dumper", $"Dump finished. Success: {result.ok}, Failed: {result.ng}", NotificationType.Information);
     }
     #endregion
 
@@ -160,17 +169,14 @@ public partial class MainViewModel : ViewModelBase
             });
         }
         PickedCount = Files.Count;
-        ProgressMax = Math.Max(1, Files.Count);
-        ProgressValue = 0;
-        Toast("FilePicker", $".ncm files picked. Count: {PickedCount}", false, NotificationType.Information);
+        Toast("FilePicker", $".ncm files picked. Count: {PickedCount}", NotificationType.Information);
     }
 
-    private void Toast(string title, string content, bool loadingMode, NotificationType type)
+    private void Toast(string title, string content, NotificationType type)
     {
         ToastManager.CreateToast()
             .WithTitle(title)
             .WithContent(content)
-            .WithLoadingState(loadingMode)
             .OfType(type)
             .Dismiss().After(TimeSpan.FromSeconds(5))
             .Queue();

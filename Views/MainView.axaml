@@ -3,7 +3,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:NCMDumperGUI.ViewModels"
-             xmlns:suki="https://github.com/kikipoulet/SukiUI"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="NCMDumperGUI.Views.MainView"
              x:DataType="vm:MainViewModel">
@@ -14,7 +13,7 @@
         <vm:MainViewModel />
     </Design.DataContext>
     
-    <Grid RowDefinitions="* , 3.5*">
+    <Grid RowDefinitions="* , 4*">
         <!-- 主面板:START -->
         <Border Grid.Row="0" 
                 Margin="25 15 25 10"
@@ -67,18 +66,11 @@
                                     Margin="0 0 5 0"/>
                             <Button Content="开始解密"
                                     Command="{Binding DumpCommand}"
-                                    Name="DumpButton"
-                                    suki:ButtonExtensions.ShowProgress="{Binding ButtonProgressMode}"/>
+                                    Name="DumpButton"/>
                         </StackPanel>
                     </Border>
                 
                 </Grid>
-                
-                <ProgressBar Grid.Row="1"
-                             Margin="25 0 25 0"
-                             Minimum="0"
-                             Maximum="{Binding ProgressMax}"
-                             Value="{Binding ProgressValue}"/>
             </Grid>
             
         </Border>
