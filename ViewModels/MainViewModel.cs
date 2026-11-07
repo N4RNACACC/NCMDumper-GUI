@@ -85,8 +85,9 @@ public partial class MainViewModel : ViewModelBase
         
         // 创建Toast
         var progressToast = ToastManager.CreateToast()
-            .WithTitle("Dumper")
+            .WithTitle("Dumping...")
             .WithContent(progressBar)
+            .WithLoadingState(true)
             .Queue();
 
         // 重置状态
@@ -228,15 +229,15 @@ public partial class MainViewModel : ViewModelBase
             });
         }
         PickedCount = Files.Count;
-        Toast("DragDrop", $".ncm files added. Count: {Files.Count}", NotificationType.Information);
+        Toast("FilePicker", $".ncm files added. Count: {Files.Count}", NotificationType.Information);
     }
     
     // 文件预检查过滤提示
     public void NotifyNoValidFiles()
-        => Toast("DragDrop", "Only .ncm files are allowed.", NotificationType.Warning);
+        => Toast("FilePicker", "Only .ncm files are allowed.", NotificationType.Warning);
 
     public void NotifySkippedNonNcm(int skipped)
-        => Toast("DragDrop", $"Skipped {skipped} non-.ncm file(s).", NotificationType.Warning);
+        => Toast("FilePicker", $"Skipped {skipped} non-.ncm file(s).", NotificationType.Warning);
     #endregion
     
 }
