@@ -39,6 +39,8 @@ public partial class MainViewModel : ViewModelBase
     
     [ObservableProperty] public partial bool IsAboutVisible { get; set; } = false;
 
+    [ObservableProperty] public partial bool IsDumping { get; set; } = false;
+
     public ObservableCollection<DumpItem> Files { get; } = [];
     
     public string ToggleButtonText => IsAboutVisible ? "Back" : "About";
@@ -62,7 +64,7 @@ public partial class MainViewModel : ViewModelBase
     private async Task DumpAsync()
     {
         Debug.WriteLine("Command method DumpAsync() Triggered");
-
+        IsDumping = true;
         if (Files.Count == 0)
         {
             Toast("Dumper", "Not pick any .ncm files !", NotificationType.Warning);
@@ -161,8 +163,22 @@ public partial class MainViewModel : ViewModelBase
             return (ok, ng);
         });
 
+        IsDumping = false;
         ToastManager.Dismiss(progressToast);
         Toast("Dumper", $"Dump finished. Success: {result.ok}, Failed: {result.ng}", NotificationType.Information);
+    }
+    
+    [RelayCommand]
+    private void ClearFilesList()
+    {
+        if (Files.Count == 0) return;
+
+        Files.Clear();
+        PickedCount = 0;
+        DumpedCount = 0;
+        FailedCount = 0;
+        
+        Toast("TaskList","Tasklist cleared", NotificationType.Information);
     }
     #endregion
 
