@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Controls.Notifications;
@@ -55,10 +56,7 @@ public partial class MainViewModel : ViewModelBase
     // Commands
     #region Commands
     [RelayCommand]
-    private void TogglePage()
-    {
-        IsAboutVisible = !IsAboutVisible;
-    }
+    private void TogglePage() => IsAboutVisible = !IsAboutVisible;
     
     [RelayCommand]
     private async Task DumpAsync()
@@ -169,6 +167,7 @@ public partial class MainViewModel : ViewModelBase
     #endregion
 
     #region Tool Methods
+    // 接收文件选择
     public void SetPickedFiles(IReadOnlyList<IStorageFile> files)
     {
         Files.Clear();
@@ -184,7 +183,8 @@ public partial class MainViewModel : ViewModelBase
         PickedCount = Files.Count;
         Toast("FilePicker", $".ncm files picked. Count: {PickedCount}", NotificationType.Information);
     }
-
+    
+    // 通用Toast方法
     private void Toast(string title, string content, NotificationType type)
     {
         ToastManager.CreateToast()
@@ -194,6 +194,33 @@ public partial class MainViewModel : ViewModelBase
             .Dismiss().After(TimeSpan.FromSeconds(5))
             .Queue();
     }
+    
+    // 文件drag辅助方法
+    public void AddFiles(IReadOnlyList<IStorageFile> files)
+    {
+        foreach (var f in files)
+        {
+            var local = f.TryGetLocalPath();
+            if (string.IsNullOrEmpty(local)) continue;
+            // 去重
+            if (Files.Any(x => x.FilePath == local)) continue;
+
+            Files.Add(new DumpItem
+            {
+                FilePath = local,
+                FileName = f.Name,
+            });
+        }
+        PickedCount = Files.Count;
+        Toast("DragDrop", $".ncm files added. Count: {Files.Count}", NotificationType.Information);
+    }
+    
+    // 文件预检查过滤提示
+    public void NotifyNoValidFiles()
+        => Toast("DragDrop", "Only .ncm files are allowed.", NotificationType.Warning);
+
+    public void NotifySkippedNonNcm(int skipped)
+        => Toast("DragDrop", $"Skipped {skipped} non-.ncm file(s).", NotificationType.Warning);
     #endregion
     
 }

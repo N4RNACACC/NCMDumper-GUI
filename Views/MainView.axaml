@@ -81,38 +81,51 @@
                 Margin="25 10 25 25"
                 BorderBrush="Gray"
                 BorderThickness="2"
-                CornerRadius="15">
+                CornerRadius="15"
+                DragDrop.AllowDrop="True"
+                DragDrop.DragOver="OnDragOver"
+                DragDrop.Drop="OnDrop">
             
             <ScrollViewer>
-                <ItemsControl ItemsSource="{Binding Files}" Margin="10">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate x:DataType="vm:DumpItem">
-                            <Border Padding="10 6" Margin="0 2"
-                                    CornerRadius="6" Background="#0A000000">
-                                <Grid ColumnDefinitions="*, Auto, 90">
-                                    <TextBlock Grid.Column="0"
-                                               Text="{Binding FileName}"
-                                               TextTrimming="CharacterEllipsis"
-                                               VerticalAlignment="Center"/>
-                                    <TextBlock Grid.Column="1"
-                                               Text="{Binding ErrorMessage}"
-                                               Foreground="OrangeRed"
-                                               FontSize="11"
-                                               Margin="8,0"
-                                               MaxWidth="220"
-                                               TextTrimming="CharacterEllipsis"
-                                               VerticalAlignment="Center"/>
-                                    <!-- 状态文字随枚举显示 -->
-                                    <TextBlock Grid.Column="2"
-                                               Text="{Binding Status}"
-                                               HorizontalAlignment="Right"
-                                               VerticalAlignment="Center"
-                                               FontWeight="SemiBold"/>
-                                </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
+                <Grid RowDefinitions="Auto,*">
+                    <TextBlock Grid.Row="0"
+                               Text="添加或拖放 .ncm 文件到此处"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center"
+                               Margin="5"/>
+                    <ItemsControl Grid.Row="1"
+                                  ItemsSource="{Binding Files}"
+                                  Margin="10">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="vm:DumpItem">
+                                <Border Padding="10 6" Margin="0 2"
+                                        CornerRadius="6" Background="#0A000000">
+                                    <Grid ColumnDefinitions="*, Auto, 90">
+                                        <TextBlock Grid.Column="0"
+                                                   Text="{Binding FileName}"
+                                                   TextTrimming="CharacterEllipsis"
+                                                   VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Column="1"
+                                                   Text="{Binding ErrorMessage}"
+                                                   Foreground="OrangeRed"
+                                                   FontSize="11"
+                                                   Margin="8,0"
+                                                   MaxWidth="220"
+                                                   TextTrimming="CharacterEllipsis"
+                                                   VerticalAlignment="Center"/>
+                                        <!-- 状态文字随枚举显示 -->
+                                        <TextBlock Grid.Column="2"
+                                                   Text="{Binding Status}"
+                                                   HorizontalAlignment="Right"
+                                                   VerticalAlignment="Center"
+                                                   FontWeight="SemiBold"/>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Grid>
             </ScrollViewer>
             
         </Border>

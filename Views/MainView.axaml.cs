@@ -1,6 +1,9 @@
 using System;
 using System.Diagnostics;
+using System.IO;
+using System.Linq;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;
 using NCMDumperGUI.ViewModels;
@@ -13,6 +16,41 @@ public partial class MainView : UserControl
     {
         InitializeComponent();
     }
+    
+    // 处理文件drag
+    #region File drag
+    private void OnDragOver(object? sender, DragEventArgs e)
+    {
+        e.DragEffects = e.DataTransfer.Contains(DataFormat.File)
+            ? DragDropEffects.Copy
+            : DragDropEffects.None;
+    }
+    
+    private void OnDrop(object? sender, DragEventArgs e)
+    {
+        if (DataContext is not MainViewModel vm) return;
+
+        if (e.DataTransfer.TryGetFiles() is not { } files) return;
+
+        var ncmFiles = files
+            .OfType<IStorageFile>()
+            .Where(f => string.Equals(Path.GetExtension(f.Name), ".ncm", StringComparison.OrdinalIgnoreCase))
+            .ToList();
+
+        if (ncmFiles.Count == 0)
+        {
+            vm.NotifyNoValidFiles();
+            return;
+        }
+
+        vm.AddFiles(ncmFiles);
+        
+        var total = files.OfType<IStorageFile>().Count();
+        if (ncmFiles.Count < total)
+            vm.NotifySkippedNonNcm(total - ncmFiles.Count);
+    }
+    #endregion
+    
 
     private async void FilePick_ClickAsync(object? sender, RoutedEventArgs e)
     {
