@@ -84,6 +84,7 @@ public partial class MainViewModel : ViewModelBase
         };
         
         // 创建Toast
+        Debug.WriteLine("ProgressToast created, waiting for progressbar update");
         var progressToast = ToastManager.CreateToast()
             .WithTitle("Dumping...")
             .WithContent(progressBar)
@@ -106,23 +107,28 @@ public partial class MainViewModel : ViewModelBase
                 var index = i;
 
                 Dispatcher.UIThread.Post(() => item.Status = DumpStatus.Running);
-
+                
                 var dumper = new NCMDumper();
+                Debug.WriteLine("Dumper initialized");
                 try
                 {
                     if (string.IsNullOrEmpty(item.FilePath) || !File.Exists(item.FilePath))
                         throw new FileNotFoundException("File not found", item.FilePath);
-
+                    
+                    Debug.WriteLine($"Dumping file: {item.FilePath}");
+                    Debug.WriteLine($"Dumping file 1/2 : encrypting...");
                     dumper.NeteaseCrypt(item.FilePath);
                     var r = dumper.Dump("");
                     if (r == 0)
                     {
+                        Debug.WriteLine($"Dumping file 2/2 : fixing metadata...");
                         dumper.FixMetadata();
                         ok++;
                         Dispatcher.UIThread.Post(() => item.Status = DumpStatus.Success);
                     }
                     else
                     {
+                        Debug.WriteLine($"fail to dump file:{item.FilePath}");
                         ng++;
                         Dispatcher.UIThread.Post(() =>
                         {
@@ -144,6 +150,7 @@ public partial class MainViewModel : ViewModelBase
                 finally
                 {
                     dumper.Destroy();
+                    Debug.WriteLine("Dumper destroyed");
                 }
 
                 // 更新进度和计数
@@ -172,6 +179,7 @@ public partial class MainViewModel : ViewModelBase
     [RelayCommand]
     private void ClearFilesList()
     {
+        Debug.WriteLine("Command method ClearFilesList() Triggered");
         if (Files.Count == 0) return;
 
         Files.Clear();
@@ -210,6 +218,7 @@ public partial class MainViewModel : ViewModelBase
             .OfType(type)
             .Dismiss().After(TimeSpan.FromSeconds(5))
             .Queue();
+        Debug.WriteLine($"Toast show: \n |Title:{title}\n |Content:{content}\n |Type:{type.ToString()}");
     }
     
     // 文件drag辅助方法

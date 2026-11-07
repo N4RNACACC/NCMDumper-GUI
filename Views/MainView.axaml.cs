@@ -21,6 +21,7 @@ public partial class MainView : UserControl
     #region File drag
     private void OnDragOver(object? sender, DragEventArgs e)
     {
+        Debug.WriteLine("DragOver method OnDragOver() Triggered");
         e.DragEffects = e.DataTransfer.Contains(DataFormat.File)
             ? DragDropEffects.Copy
             : DragDropEffects.None;
@@ -28,6 +29,7 @@ public partial class MainView : UserControl
     
     private void OnDrop(object? sender, DragEventArgs e)
     {
+        Debug.WriteLine("Drop method OnDrop() Triggered");
         if (DataContext is not MainViewModel vm) return;
 
         if (e.DataTransfer.TryGetFiles() is not { } files) return;
@@ -78,6 +80,7 @@ public partial class MainView : UserControl
             
             if (DataContext is MainViewModel vm)
             {
+                Debug.WriteLine("Picked file");
                 vm.SetPickedFiles(pickedFiles);
             }
             else
