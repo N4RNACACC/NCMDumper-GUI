@@ -6,81 +6,81 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="NCMDumperGUI.Views.MainView"
              x:DataType="vm:MainViewModel">
-    
+
     <Design.DataContext>
         <!-- This only sets the DataContext for the previewer in an IDE,
              to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
         <vm:MainViewModel />
     </Design.DataContext>
-    
+
     <Grid RowDefinitions="* , 4*">
         <!-- 主面板:START -->
-        <Border Grid.Row="0" 
+        <Border Grid.Row="0"
                 Margin="25 15 25 10"
                 BorderBrush="Gray"
                 BorderThickness="2"
                 CornerRadius="15">
-            
+
             <Grid RowDefinitions="*, Auto">
                 <Grid Grid.Row="0"
                       ColumnDefinitions="* , *">
-                
+
                     <Border Grid.Column="0"
-                        Margin="15">
+                            Margin="15">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Margin="0 0 10 0"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center">
-                                <Run Text="已选择："/>
-                                <Run Text="{Binding PickedCount}"/>
-                                <Run Text="个"/>
+                                <Run Text="已选择：" />
+                                <Run Text="{Binding PickedCount}" />
+                                <Run Text="个" />
                             </TextBlock>
-                            
-                            <Rectangle Width="1" Fill="LightGray" Margin="0,2,10,2"/>
-                            
+
+                            <Rectangle Width="1" Fill="LightGray" Margin="0,2,10,2" />
+
                             <TextBlock Margin="0 0 10 0"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center">
-                                <Run Text="已处理："/>
-                                <Run Text="{Binding DumpedCount}"/>
-                                <Run Text="个"/>
+                                <Run Text="已处理：" />
+                                <Run Text="{Binding DumpedCount}" />
+                                <Run Text="个" />
                             </TextBlock>
-                            
-                            <Rectangle Width="1" Fill="LightGray" Margin="0,2,10,2"/>
-                            
+
+                            <Rectangle Width="1" Fill="LightGray" Margin="0,2,10,2" />
+
                             <TextBlock Margin="0 0 10 0"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center">
-                                <Run Text="失败："/>
-                                <Run Text="{Binding FailedCount}"/>
-                                <Run Text="个"/>
+                                <Run Text="失败：" />
+                                <Run Text="{Binding FailedCount}" />
+                                <Run Text="个" />
                             </TextBlock>
                         </StackPanel>
                     </Border>
-                
+
                     <Border Grid.Column="1"
-                        Margin="15">
+                            Margin="15">
                         <StackPanel Orientation="Horizontal"
                                     HorizontalAlignment="Right">
                             <Button Content="选择文件"
                                     Click="FilePick_ClickAsync"
-                                    Margin="0 0 5 0"/>
+                                    Margin="0 0 5 0" />
                             <Button Content="清空选择"
                                     Command="{Binding ClearFilesListCommand}"
                                     Margin="0 0 5 0"
-                                    IsEnabled="{Binding !IsDumping}"/>
+                                    IsEnabled="{Binding !IsDumping}" />
                             <Button Content="开始解密"
                                     Command="{Binding DumpCommand}"
-                                    Name="DumpButton"/>
+                                    Name="DumpButton" />
                         </StackPanel>
                     </Border>
-                
+
                 </Grid>
             </Grid>
-            
+
         </Border>
         <!-- 主面板:END -->
-        
+
         <!-- 任务列表:START -->
         <Border Grid.Row="1"
                 Margin="25 10 25 25"
@@ -90,7 +90,7 @@
                 DragDrop.AllowDrop="True"
                 DragDrop.DragOver="OnDragOver"
                 DragDrop.Drop="OnDrop">
-            
+
             <ScrollViewer>
                 <Grid RowDefinitions="Auto,*">
                     <TextBlock Grid.Row="0"
@@ -98,7 +98,7 @@
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center"
                                TextAlignment="Center"
-                               Margin="5"/>
+                               Margin="5" />
                     <ItemsControl Grid.Row="1"
                                   ItemsSource="{Binding Files}"
                                   Margin="10">
@@ -110,7 +110,7 @@
                                         <TextBlock Grid.Column="0"
                                                    Text="{Binding FileName}"
                                                    TextTrimming="CharacterEllipsis"
-                                                   VerticalAlignment="Center"/>
+                                                   VerticalAlignment="Center" />
                                         <TextBlock Grid.Column="1"
                                                    Text="{Binding ErrorMessage}"
                                                    Foreground="OrangeRed"
@@ -118,13 +118,13 @@
                                                    Margin="8,0"
                                                    MaxWidth="220"
                                                    TextTrimming="CharacterEllipsis"
-                                                   VerticalAlignment="Center"/>
+                                                   VerticalAlignment="Center" />
                                         <!-- 状态文字随枚举显示 -->
                                         <TextBlock Grid.Column="2"
                                                    Text="{Binding Status}"
                                                    HorizontalAlignment="Right"
                                                    VerticalAlignment="Center"
-                                                   FontWeight="SemiBold"/>
+                                                   FontWeight="SemiBold" />
                                     </Grid>
                                 </Border>
                             </DataTemplate>
@@ -132,9 +132,9 @@
                     </ItemsControl>
                 </Grid>
             </ScrollViewer>
-            
+
         </Border>
         <!-- 任务列表:END -->
     </Grid>
-    
+
 </UserControl>

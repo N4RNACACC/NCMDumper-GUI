@@ -1,37 +1,37 @@
 <sukiUi:SukiWindow xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:NCMDumperGUI.ViewModels"
-        xmlns:sukiUi="clr-namespace:SukiUI.Controls;assembly=SukiUI"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:views="clr-namespace:NCMDumperGUI.Views"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        MinHeight="450" MinWidth="800"
-        x:Class="NCMDumperGUI.Views.MainWindow"
-        x:DataType="vm:MainViewModel"
-        Icon="/Assets/avalonia-logo.ico"
-        Title="NCMDumper GUI"
-        CanMaximize="False">
-    
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:vm="using:NCMDumperGUI.ViewModels"
+                   xmlns:sukiUi="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                   xmlns:views="clr-namespace:NCMDumperGUI.Views"
+                   mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+                   MinHeight="450" MinWidth="800"
+                   x:Class="NCMDumperGUI.Views.MainWindow"
+                   x:DataType="vm:MainViewModel"
+                   Icon="/Assets/avalonia-logo.ico"
+                   Title="NCMDumper GUI"
+                   CanMaximize="False">
+
     <sukiUi:SukiWindow.Hosts>
         <sukiUi:SukiToastHost Manager="{Binding ToastManager}"
-                              Name="SukiToastHost"/>
+                              Name="SukiToastHost" />
     </sukiUi:SukiWindow.Hosts>
-    
+
     <sukiUi:SukiWindow.RightWindowTitleBarControls>
         <Button Content="{Binding ToggleButtonText}"
-                Command="{Binding TogglePageCommand}"/>
+                Command="{Binding TogglePageCommand}" />
     </sukiUi:SukiWindow.RightWindowTitleBarControls>
-    
+
     <Design.DataContext>
         <!-- This only sets the DataContext for the previewer in an IDE,
              to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
         <vm:MainViewModel />
     </Design.DataContext>
-    
+
     <Panel>
-        <views:MainView IsVisible="{Binding !IsAboutVisible}"/>
-        <views:AboutView IsVisible="{Binding IsAboutVisible}"/>
+        <views:MainView IsVisible="{Binding !IsAboutVisible}" />
+        <views:AboutView IsVisible="{Binding IsAboutVisible}" />
     </Panel>
-    
+
 </sukiUi:SukiWindow>

@@ -4,13 +4,13 @@
              x:Class="NCMDumperGUI.App"
              xmlns:local="using:NCMDumperGUI"
              RequestedThemeVariant="Default">
-             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+    <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
     <Application.DataTemplates>
         <local:ViewLocator />
     </Application.DataTemplates>
 
     <Application.Styles>
-        <sukiUi:SukiTheme ThemeColor="Blue"  />
+        <sukiUi:SukiTheme ThemeColor="Blue" />
     </Application.Styles>
 </Application>
